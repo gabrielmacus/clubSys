@@ -37,6 +37,7 @@ s.setTelefonos(socio.getTelefonos());
 s.setNrosocio(socio.getNrosocio());
 s.setFechaAsociacion(socio.getFechaAsociacion());
 s.setFechaBaja(socio.getFechaBaja());
+s.setCategoria(socio.getCategoria());
 em.persist(s);
 em.getTransaction().commit();
 em.close();
