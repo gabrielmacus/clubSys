@@ -25,8 +25,7 @@ public class DisciplinaDAO {
 		em.getTransaction().begin();
 		Disciplina disc = em.find(Disciplina.class, id);
 		if (disc!=null)
-		{
-			
+		{			
 			EntityTransaction txn= em.getTransaction();
 			txn.begin();
 			try{
@@ -37,13 +36,46 @@ public class DisciplinaDAO {
 				ex.printStackTrace();
 				if(txn.isActive() )
 					txn.rollback();
-				throw ex;
-				
-			}
-					
+				throw ex;				
+			}					
 		}
 		em.close();
 	}
+	
+	
+	public void updateDisciplina(Disciplina d){
+	
+		EntityManager em= emf.createEntityManager();
+		Disciplina disc=em.find(Disciplina.class, d.getId_disciplina());
+		
+		if (disc!=null)
+		{
+			disc.setNombre(d.getNombre());
+			disc.setHoraInicio(d.getHoraInicio());
+			disc.setHoraFin(d.getHoraFin());
+			disc.setFechaInicio(d.getFechaInicio());
+			disc.setFechaFinal(d.getFechaFinal());
+			disc.setImporte(d.getImporte());
+			disc.setPorcentajeAlProfesor(d.getPorcentajeAlProfesor());
+			EntityTransaction txn= em.getTransaction();
+			txn.begin();
+			try{
+				em.merge(disc);
+				txn.commit();
+				
+			}catch (Exception ex) {
+				ex.printStackTrace();
+				if (txn.isActive())
+					txn.rollback();
+				throw ex;
+			}
+		}
+		em.close();
+			
+		
+		
+	}
+	
 	
 
 }
