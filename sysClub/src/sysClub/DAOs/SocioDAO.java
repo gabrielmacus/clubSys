@@ -1,13 +1,30 @@
 package sysClub.DAOs;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import sysClub.PersistenceManager;
 import sysClub.entidades.Socio;
 
 public class SocioDAO {
-
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("puSysClub");
+	
+	public List<Socio> getListaSocio()
+	{
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<Socio> q = em.createQuery("select s from Socio s", Socio.class);
+		List<Socio> s = q.getResultList();
+		em.close();
+		return s;
+	}
+	
+	
+	
 	public void addSocio(Socio socio) {
 		EntityManager em = PersistenceManager.getInstance().getEntityManager();
 		EntityTransaction txn = em.getTransaction();

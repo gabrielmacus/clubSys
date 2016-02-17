@@ -1,12 +1,15 @@
 package sysClub.DAOs;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 import sysClub.PersistenceManager;
 import sysClub.entidades.Disciplina;
 
 public class DisciplinaDAO {
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("puSysClub");
 	
 	public void addDisciplina(Disciplina d)
 	{
