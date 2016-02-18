@@ -1,12 +1,92 @@
 /**
  * 
  */
-$(document).ready(function()
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	function addTelefono()
+	{
+
+	var telefonos=	document.getElementById("telefonos-persona");
+
+	telefonos.innerHTML=telefonos.innerHTML+"<option>"+document.getElementById("telefono-persona").value+"</option>";
+
+	$('select').material_select();
+	
+	}
+	function getSelectedOptions(sel) {
+	    var opts = [], opt;
+	    
+	    // loop through options in select list
+	    for (var i=0, len=sel.options.length; i<len; i++) {
+	        opt = sel.options[i];
+	        
+	        // check if selected
+	        if ( opt.selected ) {
+	            opts.push(opt);
+	            
+	            
+	        }
+	    }
+	    
+	    // return array containing references to selected option elements
+	    return opts;
+	}
+	function getOptions(sel)
+	{
+	    var opts = [], opt;
+	    
+	    // loop through options in select list
+	    for (var i=0, len=sel.options.length; i<len; i++) {
+	        opt = sel.options[i];
+	        
+	        // check if selected
+	  
+	            opts.push(opt);
+	            
+	            
+	        
+	    }
+	    
+	    // return array containing references to selected option elements
+	    return opts;
+	}
+	function getOptionsSeparated(sel)
+	{
+	var options=	getOptions(sel);
+	var string="";
+	for(var i=1;i<options.length;i++)
 		{
-	
-    $('select').material_select();
-	
-		});
+		  string+=options[i].value+";"
+		}
+		
+	return string;
+	}
+	function quitTelefono()
+	{alert("z");
+		var telefonos=	document.getElementById("telefonos-persona");
+	telefonos.selected
+		var selectedOptions=  getSelectedOptions(telefonos);
+		
+		for(var i=1;i<selectedOptions.length;i++)
+			{
+                selectedOptions[i].remove();
+			}
+		
+
+		$('select').material_select();
+		
+		
+	}
+
 function toggleElement(toggled_id)
 {
 	var element=document.getElementById(toggled_id);
@@ -30,27 +110,37 @@ element.setAttribute("hidden", "");
 		element.setAttribute("hidden", "");
 		
 	}
-function postData(url,element_id)
-{
+	function showModal(text)
+	{
+		 $('#modal-text').html(text);
+		  $('#modal1').openModal();
+	}
+	function postData(url,element_id)
+	{
 
-	  var xhttp = new XMLHttpRequest();
-	  
-	xhttp.onreadystatechange = function() {
-		    if (xhttp.readyState == 4 && xhttp.status == 200) {
-		    	
-			    
+		  var xhttp = new XMLHttpRequest();
+		  
+		xhttp.onreadystatechange = function() {
+			    if (xhttp.readyState == 4 && xhttp.status == 200) {
+			    	
+				    
 
-               
-	
-   var element = document.getElementById(element_id);
+	               if(element!="undefined")
+	            	   {
+		
+	   var element = document.getElementById(element_id);
 
-               element.innerHTML=xhttp.responseText;
+	 //  alert(xhttp.responseText);
+	               element.innerHTML=element.innerHTML+xhttp.responseText;
+	            	   }
 
-		   	    }
-		   	  };
-		   	 
-		   	  
-	  xhttp.open("POST",url, true);
- xhttp.send();
+			   	    }
+			   	  };
+			   	 
+			   	  
+		  xhttp.open("POST",url, true);
 
-}
+		  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	 xhttp.send();
+
+	}

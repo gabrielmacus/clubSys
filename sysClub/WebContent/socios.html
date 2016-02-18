@@ -11,7 +11,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
   
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script type="text/javascript" src="js/controller.js"></script>
+<script type="text/javascript" src="http://localhost:8080/sysClub/js/controller.js"></script>
+
+<script type="text/javascript" src="http://localhost:8080/sysClub/js/socio_controller.js"></script>
 
   <link rel="stylesheet" href="css/estilo.css">
 </head>
@@ -31,7 +33,7 @@
     </div>
     <div id="test1" class="col s12">
     
-<form  name="add-form" id="add-form" method="post">
+<form  name="add-form" id="add-form" method="post" action="addsocio">
 
   <div class="z-depth-1">
        <h5 style="padding-bottom:15px;padding-top: 15px" class="blue-text"> Datos basicos</h5>
@@ -40,24 +42,24 @@
   
 <div class="row">
 <div class="input-field col s12 m4 l3" >
-<input type="text" name="nombre-persona" placeholder="Nombre" >
+<input type="text" id="nombre-persona" placeholder="Nombre" >
 </div>
 <div class="input-field col s12 m4 l3" >
-<input type="text" name="apellido-persona"  placeholder="Apellido" >
+<input type="text" id="apellido-persona"  placeholder="Apellido" >
 </div>
 <div class="input-field col s12 m4 l3" >
-<input type="text" name="direccion-persona" placeholder="Direccion" >
+<input type="text" id="direccion-persona" placeholder="Direccion" >
 </div>
 
 <div class="input-field col s12  l3" >
-<input type="number" name="dni-persona" placeholder="DNI" >
+<input type="number" id="dni-persona" placeholder="DNI" >
 </div>
 
  </div>
  
  <div class="row">
   <div class="input-field col s12">
-    <select multiple>
+    <select id="telefonos-persona" name="telefonos-persona[]" multiple>
       <option  disabled selected>Telefonos de contacto</option>
 
     </select>
@@ -66,15 +68,15 @@
 
 <div class="row">
 <div class="input-field col s12">
-<input placeholder="Nro. de telefono" name="telefono-persona" type="number"  min="0">
+<input placeholder="Nro. de telefono" name="telefono-persona" id="telefono-persona" type="number" >
 </div>
 </div>
 
 <div class="row">  
 <div class="col m2 l2"> &nbsp;</div>
-<button  type="button" class=" light-blue  darken-1 btn waves-effect waves-light  col s12 m3 l3"><i class="small material-icons">delete</i></button>
+<button onclick="quitTelefono()"  type="button" class=" light-blue  darken-1 btn waves-effect waves-light  col s12 m3 l3"><i class="small material-icons">delete</i></button>
 <div class="col m2 l2"> &nbsp;</div>
-<button type="button" class=" light-blue  darken-1 btn waves-effect waves-light  col s12 m3 l3"><i class="small material-icons">playlist_add</i></button>
+<button onclick="addTelefono()" type="button" class=" light-blue  darken-1 btn waves-effect waves-light  col s12 m3 l3"><i class="small material-icons">playlist_add</i></button>
 <div class="col m2 l2"> &nbsp;</div>
 </div>
 
@@ -85,12 +87,12 @@
         </div>
         
  <div class="input-field">       
-<input type="number" name="numero-socio"  min="0" placeholder="Numero de socio">
+<input name="numero-socio-persona" type="number" id="numero-socio"  min="0" placeholder="Numero de socio">
 <select id="lista-categorias">
-<option disabled selected>Categoria</option>
+<option id="selected-categoria-persona" disabled selected>Categoria</option>
 </select>
 </div>
-<input class=" light-blue   darken-1 btn waves-effect waves-light" type="submit" value="Aceptar">
+<button class=" light-blue   darken-1 btn waves-effect waves-light" type="submit" >Aceptar</button>
 
 
 </form>
@@ -104,9 +106,10 @@
     
 <div id="lista-socios-container">
 
-    <ul class="collection with-header ">
+    <ul class="collection with-header" id="lista-socios">
         <li  class="collection-header"><h5>Socios</h5></li>
-        <li class="collection-item disabled" >Alvin</li>
+
+        
       </ul>
             
             
@@ -123,5 +126,17 @@
  
 </div>
 
+  <!-- Modal Structure -->
+  <div  id="modal1" class="modal center-align">
+    <div class="modal-content">
+      <h4 id="modal-text"></h4>
+    
+    </div>
+    
+  </div>
+          
+          
+          
+          
 </body>
 </html>
