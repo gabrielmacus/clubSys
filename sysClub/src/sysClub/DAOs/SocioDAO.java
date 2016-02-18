@@ -72,7 +72,7 @@ public class SocioDAO {
 		EntityTransaction txn = em.getTransaction();
 		txn.begin();
 		if (s != null) {
-			try {
+			
 				s.setApellido(socio.getApellido());
 				s.setDireccion(socio.getDireccion());
 				s.setNombre(socio.getNombre());
@@ -81,9 +81,10 @@ public class SocioDAO {
 				s.setFechaAsociacion(socio.getFechaAsociacion());
 				s.setFechaBaja(socio.getFechaBaja());
 				s.setCategoria(socio.getCategoria());
+				try {
 				em.persist(s);
 				em.getTransaction().commit();
-				em.close();
+				
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				if (txn.isActive())

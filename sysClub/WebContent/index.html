@@ -1,17 +1,47 @@
+<%@ page import="modelo.Contacto, java.util.List, datos.SocioDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>SysClub 1.0</title>
 </head>
 <body>
-<div align="center" id="main-menu">
-<h3>Gestionar:</h3>
+	<div align="center" id="main-menu">
+		<h1>Sys Club</h1>
+		<h2>Gestión</h2>
 
-<a  href="socios.html"><button>Socios</button></a>
-<a  href="profesores.html"><button>Profesores</button></a>
-<a  href="disciplinas.html"><button >Disciplinas</button></a>
+		<a href="profesores.html"><button>Profesores</button></a> <a
+			href="disciplinas.html"><button>Disciplinas</button></a> <br> <br>
+		<h3>Listado de socios</h3>
 
-</div>
+		<a href="Socios2.html">Nuevo Socio</a>
+
+		<table style="width: 80%; border: solid; table-layout: auto;">
+			<tr>
+				<td>Nro Socio</td>
+				<td>Nombre</td>
+				<td>Apellido</td>
+				<td>Categoria</td>
+			</tr>
+			<% List
+			<Socio> socios = (List<Socio>)session.getAttribute("lista");
+			if (socios == null) { socios = new SociosDAO().getListaSocio();
+			session.setAttribute("lista", socios); } 
+			
+			for(Socio s:socios) {
+			out.write("<tr>");
+			out.write("<td>"+s.getNombre()+"</td>");
+			out.write("<td>"+s.getDireccion()+"</td>");
+			out.write("<td>"+s.getTelefonos()+"</td>");
+			
+			out.write("</tr>");
+		}
+			
+			%> 
+		</table>
+
+
+
+	</div>
 </body>
 </html>
