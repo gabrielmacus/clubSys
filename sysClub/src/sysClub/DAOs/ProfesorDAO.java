@@ -42,32 +42,51 @@ public class ProfesorDAO {
 		}
 		em.close();
 	}
-	
-	public void deleteProfesor(Long dni)
-	{
+
+	public void deleteProfesor(Long dni) {
 		EntityManager em = emf.createEntityManager();
 		Profesor p = em.find(Profesor.class, dni);
-		if (p!= null)
-		{
+		if (p != null) {
 			EntityTransaction txn = em.getTransaction();
 			txn.begin();
-			
-			try{
+
+			try {
 				em.remove(p);
 				txn.commit();
-			}catch(Exception ex)
-			{
-				if(txn.isActive())
+			} catch (Exception ex) {
+				if (txn.isActive())
 					txn.rollback();
 				ex.printStackTrace();
 				throw ex;
 			}
 		}
 		em.close();
-		
+
 	}
-	
-	
-	
+
+	public void updateProfesor(Profesor profe) {
+		EntityManager em = emf.createEntityManager();
+		Profesor p = em.find(Profesor.class, profe.getDni());
+		EntityTransaction txn = em.getTransaction();
+		txn.begin();
+		if (p != null) {
+			p.setApellido(profe.getApellido());
+			p.setDireccion(profe.getDireccion());
+			p.setDisciplinasAsociadas(profe.getDisciplinasAsociadas());
+			p.setNombre(profe.getNombre());
+			p.setTelefonos(profe.getTelefonos());
+			p.setTitulo(profe.getTitulo());
+			try {
+				em.merge(p);
+				txn.commit();
+			} catch (Exception ex) {
+				if (txn.isActive())
+					txn.rollback();
+				ex.printStackTrace();
+				throw ex;
+			}
+		}
+		em.close();
+	}
 
 }
