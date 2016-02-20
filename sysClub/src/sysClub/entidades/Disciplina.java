@@ -26,9 +26,11 @@ public class Disciplina {
 	@Column(nullable=false,length=30)
 String nombre;
 	@Column(nullable=false)
-Byte horaInicio;
+	@Temporal(TemporalType.TIME)
+Date horaInicio;
 	@Column(nullable=false)
-Byte horaFin;
+	@Temporal(TemporalType.TIME)
+Date  horaFin;
 	@Column(nullable=false)
 @Temporal(TemporalType.DATE)
 Date fechaInicio;
@@ -46,7 +48,7 @@ public Disciplina()
 	
 }
 
-public Disciplina(String nombre, Byte horaInicio, Byte horaFin, Date fechaInicio, Date fechaFinal, Double importe,
+public Disciplina(String nombre,Date horaInicio, Date horaFin, Date fechaInicio, Date fechaFinal, Double importe,
 		Float porcentajeAlProfesor) {
 	super();
 	this.nombre = nombre;
@@ -90,19 +92,19 @@ public void setNombre(String nombre) {
 	this.nombre = nombre;
 }
 
-public Byte getHoraInicio() {
+public Date getHoraInicio() {
 	return horaInicio;
 }
 
-public void setHoraInicio(Byte horaInicio) {
+public void setHoraInicio(Date horaInicio) {
 	this.horaInicio = horaInicio;
 }
 
-public Byte getHoraFin() {
+public Date getHoraFin() {
 	return horaFin;
 }
 
-public void setHoraFin(Byte horaFin) {
+public void setHoraFin(Date horaFin) {
 	this.horaFin = horaFin;
 }
 

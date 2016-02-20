@@ -4,31 +4,38 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 public class Socio extends Persona {
-	@Column(unique=true,nullable=false)
-Integer nrosocio;
+	@GeneratedValue(generator="my_seq")
+	@SequenceGenerator(name="my_seq",sequenceName="MY_SEQ", allocationSize=1)	
+int nrosocio;
 	
 	@Temporal(TemporalType.DATE)
-	Date fechaAsociacion;
+	private Date fechaAsociacion;
 	@Temporal(TemporalType.DATE)
-	Date fechaBaja;
-	@ManyToOne(fetch=FetchType.LAZY)
-	Categoria categoria;
+	private Date fechaBaja;
+	@ManyToOne
+	private Categoria categoria;
 	@ManyToMany(mappedBy="listaSocios")
-	List<Disciplina>listaDisciplinas=new ArrayList<>();
-	
-	public Socio(String nombre, String apellido, String direccion, String telefonos, Long dni, Integer nrosocio,Categoria categoria) {
+	private List<Disciplina>listaDisciplinas=new ArrayList<>();
+	@OneToMany(cascade= CascadeType.REMOVE,mappedBy="socio")
+	private List<Cuota>cuotas=new ArrayList<>();
+	public Socio(String nombre, String apellido, String direccion, String telefonos, Long dni, Categoria categoria) {
 		super(nombre, apellido, direccion, telefonos, dni);
-		this.nrosocio = nrosocio;
+	
 		this.fechaAsociacion = new Date();
 		this.categoria=categoria;
 		
@@ -38,6 +45,12 @@ Integer nrosocio;
 	}
 	
 	
+	public List<Cuota> getCuotas() {
+		return cuotas;
+	}
+	public void setCuotas(List<Cuota> cuotas) {
+		this.cuotas = cuotas;
+	}
 	public List<Disciplina> getListaDisciplinas() {
 		return listaDisciplinas;
 	}
