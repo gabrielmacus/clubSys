@@ -1,5 +1,7 @@
 package sysClub.DAOs;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -9,7 +11,6 @@ import sysClub.PersistenceManager;
 import sysClub.entidades.Disciplina;
 
 public class DisciplinaDAO {
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("puSysClub");
 	
 	public void addDisciplina(Disciplina d)
 	{
@@ -17,6 +18,13 @@ public class DisciplinaDAO {
 		em.getTransaction().begin();
 		em.persist(d);
 		em.getTransaction().commit();
+	}
+	public List<Disciplina>getDisciplinas()
+	{
+		EntityManager em = PersistenceManager.getInstance().getEntityManager();
+		List<Disciplina> disciplinas = em.createQuery("select d from Disciplina d", Disciplina.class).getResultList();
+		em.close();
+		return disciplinas;
 	}
 	
 	public void deleteDisciplina(Long id)
@@ -45,7 +53,7 @@ public class DisciplinaDAO {
 	
 	public void updateDisciplina(Disciplina d){
 	
-		EntityManager em= emf.createEntityManager();
+		EntityManager em=PersistenceManager.getInstance().getEntityManager();
 		Disciplina disc=em.find(Disciplina.class, d.getId_disciplina());
 		
 		if (disc!=null)

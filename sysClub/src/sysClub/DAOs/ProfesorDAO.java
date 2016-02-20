@@ -5,18 +5,18 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import sysClub.PersistenceManager;
 import sysClub.entidades.Profesor;
 
 public class ProfesorDAO {
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("puSysClub");
 
 	public Profesor getProfesor(long dni) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em =PersistenceManager.getInstance().getEntityManager();
 		return em.find(Profesor.class, dni);
 	}
 
 	public void addProfesor(Profesor profe) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em =PersistenceManager.getInstance().getEntityManager();
 		Profesor p = em.find(Profesor.class, profe.getDni());
 
 		if (p != null) {
@@ -44,7 +44,7 @@ public class ProfesorDAO {
 	}
 
 	public void deleteProfesor(Long dni) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em =PersistenceManager.getInstance().getEntityManager();
 		Profesor p = em.find(Profesor.class, dni);
 		if (p != null) {
 			EntityTransaction txn = em.getTransaction();
@@ -65,7 +65,7 @@ public class ProfesorDAO {
 	}
 
 	public void updateProfesor(Profesor profe) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = PersistenceManager.getInstance().getEntityManager();
 		Profesor p = em.find(Profesor.class, profe.getDni());
 		EntityTransaction txn = em.getTransaction();
 		txn.begin();

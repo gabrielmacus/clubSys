@@ -12,18 +12,21 @@ import sysClub.PersistenceManager;
 import sysClub.entidades.Socio;
 
 public class SocioDAO {
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("puSysClub");
 	
 	public List<Socio> getListaSocio()
 	{
-		EntityManager em = emf.createEntityManager();
+		EntityManager em =PersistenceManager.getInstance().getEntityManager();
 		TypedQuery<Socio> q = em.createQuery("select s from Socio s", Socio.class);
 		List<Socio> s = q.getResultList();
 		em.close();
 		return s;
 	}
 	
-	
+	public Socio returnSocio(Long dni)
+	{
+		EntityManager em = PersistenceManager.getInstance().getEntityManager();
+		return em.find(Socio.class, dni);
+	}
 	
 	public void addSocio(Socio socio) {
 		EntityManager em = PersistenceManager.getInstance().getEntityManager();

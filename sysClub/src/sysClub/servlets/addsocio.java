@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sysClub.DAOs.CategoriaDAO;
+import sysClub.DAOs.SocioDAO;
+import sysClub.entidades.Categoria;
+import sysClub.entidades.Socio;
+
 /**
  * Servlet implementation class addsocio
  */
@@ -42,7 +47,21 @@ public class addsocio extends HttpServlet {
 		try
 		{
 			
-			
+			CategoriaDAO catDao= new CategoriaDAO(); 
+			String nombreCategoria =request.getParameter("categoria");
+			String nombre = request.getParameter("nombre");
+			String apellido =request.getParameter("apellido");
+		String direccion = request.getParameter("direccion");
+		String telefonos = request.getParameter("telefonos");
+		String dni = request.getParameter("dni");
+	   
+	Categoria categoria =catDao.getCategoriaByName(nombreCategoria);
+	
+	         SocioDAO socioDao=new SocioDAO();
+	         Socio socio = new Socio(nombre, apellido, direccion, telefonos,Long.parseLong(dni), categoria);
+	     
+	        	 socioDao.addSocio(socio); 
+	         
 			out.print("t");
 		}
 		catch(Exception ex)

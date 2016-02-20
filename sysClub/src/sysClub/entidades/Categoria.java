@@ -16,7 +16,7 @@ public class Categoria {
 	@Id
 	@GeneratedValue
 	Long id_categoria;
-@Column(length=30,nullable=false)
+@Column(length=30,nullable=false,unique=true)
 String nombre;
 @Lob
 @Column(nullable=false)

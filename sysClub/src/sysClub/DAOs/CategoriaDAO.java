@@ -3,18 +3,15 @@ package sysClub.DAOs;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import sysClub.PersistenceManager;
 import sysClub.entidades.Categoria;
 
 public class CategoriaDAO {
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("puSysClub");
-
 	public void AddCategoria(Categoria categoria) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = PersistenceManager.getInstance().getEntityManager();
 		EntityTransaction txn = em.getTransaction();
 		txn.begin();
 		if (categoria != null) {
@@ -32,7 +29,7 @@ public class CategoriaDAO {
 	}
 
 	public List<Categoria> getListaCat() {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = PersistenceManager.getInstance().getEntityManager();
 		TypedQuery<Categoria> q = em.createQuery("select c from Categoria c", Categoria.class);
 		List<Categoria> cat = q.getResultList();
 		em.close();
@@ -41,13 +38,13 @@ public class CategoriaDAO {
 	}
 
 	public Categoria getCategoria(Long id) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = PersistenceManager.getInstance().getEntityManager();
 		return em.find(Categoria.class, id);
 
 	}
 
 	public void deleteCategoria(Long id) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em =PersistenceManager.getInstance().getEntityManager();
 		Categoria c = em.find(Categoria.class, id);
 		if (c != null) {
 			EntityTransaction txn = em.getTransaction();
@@ -67,7 +64,7 @@ public class CategoriaDAO {
 	}
 
 	public void updateCategoria(Categoria cat) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = PersistenceManager.getInstance().getEntityManager();
 		EntityTransaction txn = em.getTransaction();
 		Categoria c = em.find(Categoria.class, cat.getId_categoria());
 		if(c!=null)
@@ -93,4 +90,9 @@ public class CategoriaDAO {
 
 	}
 
+	public Categoria getCategoriaByName(String nombre)
+	{
+		EntityManager em = PersistenceManager.getInstance().getEntityManager();
+		return em.createQuery("select c from Categoria c where nombre like '"+nombre+"'", Categoria.class).getSingleResult();
+	}
 }

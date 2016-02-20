@@ -10,7 +10,6 @@ import sysClub.PersistenceManager;
 import sysClub.entidades.Persona;
 
 public class PersonaDAO {
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("puSysClub");
 	public void addPersona(Persona persona) {
 		EntityManager em = PersistenceManager.getInstance().getEntityManager();
 		em.getTransaction().begin();
