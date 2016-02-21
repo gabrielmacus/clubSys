@@ -41,6 +41,7 @@
       %>
       </select>
       <input type="submit" value="Aceptar">
+      <input type="submit" value="Cancelar">
  </form>
 		
 </body>

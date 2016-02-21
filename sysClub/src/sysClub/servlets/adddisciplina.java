@@ -20,51 +20,58 @@ import sysClub.entidades.Disciplina;
 @WebServlet("/adddisciplina")
 public class adddisciplina extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public adddisciplina() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public adddisciplina() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
- PrintWriter out = response.getWriter();
- 
- try
- {DisciplinaDAO disciplinaDAO=new DisciplinaDAO();
- SimpleDateFormat sdfHora= new SimpleDateFormat("hh:mm");
- SimpleDateFormat sdfFecha= new SimpleDateFormat("dd-mm-yyyy");
-Date horaInicio = sdfHora.parse(request.getParameter("hora_ini"));
-Date horaFin =  sdfHora.parse(request.getParameter("hora_fin"));
-String nombre = request.getParameter("nombre");
-Date fechaInicio =sdfFecha.parse(request.getParameter("fecha_ini"));
-Date fechaFinal = sdfFecha.parse(request.getParameter("fecha_fin"));
+		PrintWriter out = response.getWriter();
 
+		try {
+			DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+			
+			SimpleDateFormat sdfHora = new SimpleDateFormat("hh:mm");
+			SimpleDateFormat sdfFecha = new SimpleDateFormat("yyyy-mm-dd");
+			
+			Date horaInicio = sdfHora.parse(request.getParameter("hora_ini"));
+			Date horaFin = sdfHora.parse(request.getParameter("hora_fin"));
+			String nombre = request.getParameter("nombre");
+			Date fechaInicio = sdfFecha.parse(request.getParameter("fecha_ini"));
+			Date fechaFinal = sdfFecha.parse(request.getParameter("fecha_fin"));
+			Double importe = Double.parseDouble(request.getParameter("importe"));
+			Float porcentajeAlProfesor = Float.parseFloat(request.getParameter("porcentaje"));
+			
+			Disciplina d = new Disciplina(nombre, horaInicio, horaFin, fechaInicio, fechaFinal, importe,
+					porcentajeAlProfesor);
+			disciplinaDAO.addDisciplina(d);
+			response.sendRedirect("contactos.jsp");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			out.println("Error al agregar disciplina");
+		}
+		response.sendRedirect("contactos.jsp");
 
-Double importe = Double.parseDouble(request.getParameter("importe"));
-Float porcentajeAlProfesor = Float.parseFloat(request.getParameter("porcentaje"));
- Disciplina d =new Disciplina(nombre, horaInicio, horaFin, fechaInicio,fechaFinal, importe, porcentajeAlProfesor);
-	 disciplinaDAO.addDisciplina(d);
- }catch(Exception ex)
- {
-	 ex.printStackTrace();
-	 out.println("Error al agregar disciplina");
- }
- 
 	}
 
 }

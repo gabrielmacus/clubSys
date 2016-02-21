@@ -23,19 +23,22 @@
 				<td>Nombre</td>
 				<td>Apellido</td>
 				<td>Categoria</td>
+				<td>Dirección</td>
+				<td>Teléfono</td>
 			</tr>
 			<%
-		/*List<Socio> socios = (List<Socio>)session.getAttribute("lista");
-			if (socios == null) { socios = new SocioDAO().getListaSocio();
-			session.setAttribute("lista", socios); } */
+		
 			List<Socio> socios = new SocioDAO().getListaSocio();
 			for(Socio s:socios) {
 			out.write("<tr>");
+			out.write("<td>"+s.getNrosocio()+"</td>");
 			out.write("<td>"+s.getNombre()+"</td>");
+			out.write("<td>"+s.getApellido()+"</td>");
+			out.write("<td>"+s.getCategoria().getNombre()+"</td>");
 			out.write("<td>"+s.getDireccion()+"</td>");
 			out.write("<td>"+s.getTelefonos()+"</td>");
 
-			out.write("<td>"+s.getCategoria().getNombre()+"</td>");
+			
 			out.write("<td><a href='mod_socio.jsp?dni="+s.getDni()+"'>Editar</a></td>");
 			out.write("</tr>");
 		}

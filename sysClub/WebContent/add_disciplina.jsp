@@ -14,8 +14,8 @@
 <input type="text" name="nombre" placeholder="NOMBRE">
 <input type="time" name="hora_ini" placeholder="HORA INICIO">
 <input type="time" name="hora_fin" placeholder="HORA FIN">
-<input type="text" name="fecha_ini" placeholder="FECHA DE INICIO">
-<input type="text" name="fecha_fin" placeholder="FECHA FINALIZACION">
+<input type="date" name="fecha_ini" placeholder="FECHA DE INICIO">
+<input type="date" name="fecha_fin" placeholder="FECHA FINALIZACION">
 <input type="text" name="importe" placeholder="VALOR DE CUOTA">
 <input type="text" name="porcentaje" placeholder="PORCENTAJE AL PROFESOR">
 <input type="submit" value="Aceptar">

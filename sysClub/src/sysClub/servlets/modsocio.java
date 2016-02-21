@@ -20,51 +20,55 @@ import sysClub.entidades.Socio;
 @WebServlet("/modsocio")
 public class modsocio extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public modsocio() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public modsocio() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-       PrintWriter out=	response.getWriter();
-       
-try
-{
-		CategoriaDAO catDao= new CategoriaDAO(); 
-		String nombreCategoria =request.getParameter("categoria");
-		String nombre = request.getParameter("nombre");
-		String apellido =request.getParameter("apellido");
-	String direccion = request.getParameter("direccion");
-	String telefonos = request.getParameter("telefonos");
-	String dni = request.getParameter("dni");
-  
-Categoria categoria =catDao.getCategoriaByName(nombreCategoria);
+		PrintWriter out = response.getWriter();
 
-            Socio socio =new Socio(nombre, apellido, direccion, telefonos,Long.parseLong(dni), categoria);
-		 new SocioDAO().updateSocio(socio);
-}
-catch(Exception ex)
-{
-	out.println("Error al modificar el socio");
-	ex.printStackTrace();
-}
-		
+		try {
+			CategoriaDAO catDao = new CategoriaDAO();
+			
+			String nombreCategoria = request.getParameter("categoria");
+			String nombre = request.getParameter("nombre");
+			String apellido = request.getParameter("apellido");
+			String direccion = request.getParameter("direccion");
+			String telefonos = request.getParameter("telefonos");
+			String dni = request.getParameter("dni");
+
+			Categoria categoria = catDao.getCategoriaByName(nombreCategoria);
+
+			Socio socio = new Socio(nombre, apellido, direccion, telefonos, Long.parseLong(dni), categoria);
+			new SocioDAO().updateSocio(socio);
+			response.sendRedirect("socios.jsp");
+		} catch (Exception ex) {
+			out.println("Error al modificar el socio");
+			ex.printStackTrace();
+		}
+		response.sendRedirect("socios.jsp");
+
 	}
 
 }

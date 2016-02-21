@@ -1,25 +1,28 @@
 package sysClub.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sysClub.DAOs.SocioDAO;
+import sysClub.DAOs.CategoriaDAO;
+import sysClub.entidades.Categoria;
 
 /**
- * Servlet implementation class SocioController
+ * Servlet implementation class addcategoria
  */
-@WebServlet("/SocioController")
-public class SocioController extends HttpServlet {
+@WebServlet("/addcategoria")
+public class addcategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SocioController() {
+    public addcategoria() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,19 +38,32 @@ public class SocioController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		/*if(request.getParameter("btnCancelar")!=null)
-		{
-			response.sendRedirect("index.html");
-		}*/
-		
-		SocioDAO dao = new SocioDAO();
 		
 		
+	PrintWriter out = response.getWriter();
+	
+	try{
+		CategoriaDAO categoriadao = new CategoriaDAO();
 		
 		
+		String nombre=request.getParameter("nombre");
+		String descripcion=request.getParameter("descripcion");
+		Double importe=Double.parseDouble(request.getParameter("importe"));
+		
+		Categoria c = new Categoria(nombre, descripcion, importe);
+		
+		categoriadao.AddCategoria(c);
+		
+		
+	}catch(Exception ex){
+		ex.printStackTrace();
+		out.println("no se pudo agregar la categoría");
+	}
+	response.sendRedirect("index.jsp");
+	
+	
 	}
 
 }
