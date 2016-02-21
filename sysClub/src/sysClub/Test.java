@@ -40,7 +40,7 @@ em.persist(profesor);
 em.getTransaction().commit();
 	
 	SocioDAO socioDAO = new SocioDAO();
-    Socio socio = new Socio("Juan", "Ibañez", "Albania 234", "433434", 32323233l, 1011,cat);
+    Socio socio = new Socio("Juan", "Ibañez", "Albania 234", "433434", 32323233l, cat);
     
     socioDAO.addSocio(socio);
     
@@ -52,7 +52,7 @@ em.getTransaction().commit();
 
 	
 	
-	Disciplina disciplina =new Disciplina("Futbol", (byte)17, (byte)19,new Date(),new Date(),new Double(223),23f);
+	Disciplina disciplina =new Disciplina("Futbol", new Date(), new Date(),new Date(),new Date(),new Double(223),23f);
 	disciplina.setProfesor(profesor);
 	
 	em.getTransaction().begin();

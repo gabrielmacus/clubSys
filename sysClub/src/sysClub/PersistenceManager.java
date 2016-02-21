@@ -12,56 +12,53 @@ import javax.persistence.Persistence;
  * and open the template in the editor.
  */
 
-/** n
+/**
+ * n
  *
  * @author Gabi
  */
 public class PersistenceManager {
- 
-  public static final boolean DEBUG = true;
-  
-  private static final PersistenceManager singleton = new PersistenceManager();
-  
-  protected EntityManagerFactory emf;
-  
-  public static PersistenceManager getInstance() {
-    
-     
-    return singleton;
-  }
-  
-  private PersistenceManager() {
-  }
- 
-  public EntityManagerFactory getEntityManagerFactory() {
-    
-    if (emf == null)
-      createEntityManagerFactory();
-    return emf;
-  }
-  
-  
-  public EntityManager getEntityManager()
-  {
-	  return getEntityManagerFactory().createEntityManager();
-  }
-  
-  
-  public void closeEntityManagerFactory() {
-    
-    if (emf != null) {
-      emf.close();
-      emf = null;
-      if (DEBUG)
-        System.out.println("n*** Persistence finished at " + new java.util.Date());
-    }
-  }
-  
-  protected void createEntityManagerFactory() {
-    
-    this.emf = Persistence.createEntityManagerFactory(new Properties().getProperty("em"));
-    if (DEBUG)
-      System.out.println("n*** Persistence started at " + new java.util.Date());
-   
-  }
+
+	public static final boolean DEBUG = true;
+
+	private static final PersistenceManager singleton = new PersistenceManager();
+
+	protected EntityManagerFactory emf;
+
+	public static PersistenceManager getInstance() {
+
+		return singleton;
+	}
+
+	private PersistenceManager() {
+	}
+
+	public EntityManagerFactory getEntityManagerFactory() {
+
+		if (emf == null)
+			createEntityManagerFactory();
+		return emf;
+	}
+
+	public EntityManager getEntityManager() {
+		return getEntityManagerFactory().createEntityManager();
+	}
+
+	public void closeEntityManagerFactory() {
+
+		if (emf != null) {
+			emf.close();
+			emf = null;
+			if (DEBUG)
+				System.out.println("n*** Persistence finished at " + new java.util.Date());
+		}
+	}
+
+	protected void createEntityManagerFactory() {
+
+		this.emf = Persistence.createEntityManagerFactory(new Properties().getProperty("em"));
+		if (DEBUG)
+			System.out.println("n*** Persistence started at " + new java.util.Date());
+
+	}
 }
